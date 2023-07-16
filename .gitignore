@@ -34,3 +34,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Exclude build/libs/app.jar
+!build/libs/app.jar
