@@ -1,5 +1,11 @@
 .gradle
-build/
+build/classes
+build/kotlin
+build/resources
+build/snapshot
+build/tmp
+
+
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -34,6 +40,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-# Exclude build/libs/app.jar
-!build/libs/app.jar
