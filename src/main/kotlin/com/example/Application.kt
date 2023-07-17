@@ -10,7 +10,7 @@ import org.ktorm.database.Database
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0"){
-        var database = Database.connect(url = "jdbc:mysql://aws.connect.psdb.cloud/tryingv1?sslMode=VERIFY_IDENTITY", user = "pcc434fxi35wi7ng8s66" , password = "pscale_pw_xo9Vyl5qsx49d78L1GYnezir3HE1wyFJxPgofnZYCR3")
+//        var database = Database.connect(url = "jdbc:mysql://aws.connect.psdb.cloud/tryingv1?sslMode=VERIFY_IDENTITY", user = "3jecm085g6dhpwvc9wv7" , password = "pscale_pw_xvmkSHGJax6tGvRt3zhBzpeFg36L8QBjiIpcwBiTaXe")
 
         routing {
             get("/") {
