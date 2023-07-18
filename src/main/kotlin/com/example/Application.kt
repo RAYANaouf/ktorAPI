@@ -13,9 +13,8 @@ fun main() {
 
         Database.connect(
             url = "jdbc:mysql://aws.connect.psdb.cloud/test2",
-            driver = "com.mysql.cj.jdbc.Driver",
-            user = "lw02s6trz0hbjslaq01p",
-            password = "pscale_pw_vpcfeDI7K1s8vzjFP6v8zCJLRAXcPCB0b0qJqOEDLMr"
+            user = "uemxywdoxh38jx0hbjak",
+            password = "pscale_pw_V2wAYXaEsRYLDBVRLsQsSdb8FdRC9hjx4qoH2glw0Ca"
         )
 
         routing {
