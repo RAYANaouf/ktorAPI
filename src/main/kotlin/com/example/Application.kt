@@ -12,10 +12,10 @@ fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0"){
 
         Database.connect(
-            url = "jdbc:mysql://aws.connect.psdb.cloud/tryingv1",
-            driver = "com.mysql.jdbc.Driver",
-            user = "07dk6aba8gvplpby8fhq",
-            password = "pscale_pw_3HZ8xYKc35a4wJCEgLindUiYvZMQTyz5CieSMeizoH"
+            url = "jdbc:mysql://aws.connect.psdb.cloud/test2",
+            driver = "com.mysql.cj.jdbc.Driver",
+            user = "lw02s6trz0hbjslaq01p",
+            password = "pscale_pw_vpcfeDI7K1s8vzjFP6v8zCJLRAXcPCB0b0qJqOEDLMr"
         )
 
         routing {
