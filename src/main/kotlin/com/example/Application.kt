@@ -11,10 +11,11 @@ import org.ktorm.database.Database
 fun main() {
     embeddedServer(Netty, port = 3306){
 
-        Database.connect(
-            url = "jdbc:mysql://sql8.freemysqlhosting.net/sql8633448",
-            user = "sql8633448",
-            password = "2AulKfRe3N"
+        val database = Database.connect(
+            "jdbc:postgresql://ep-morning-morning-536913.eu-central-1.aws.neon.tech/neondb?user=RAYANaouf&password=xUYdJFX5aSm8",
+            driver = "org.postgresql.Driver",
+            user = "RAYANaouf",
+            password = "xUYdJFX5aSm8"
         )
 
         routing {

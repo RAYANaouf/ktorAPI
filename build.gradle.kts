@@ -1,6 +1,8 @@
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
+val ktorm_version: String by project
+val postgresql_driver_version: String by project
 
 plugins {
     kotlin("jvm") version "1.9.0"
@@ -40,4 +42,7 @@ dependencies {
     implementation("com.mysql:mysql-connector-j:8.0.33")
 
 
+    implementation("org.ktorm:ktorm-core:$ktorm_version")
+    implementation("org.ktorm:ktorm-support-postgresql:$ktorm_version")
+    implementation("org.postgresql:postgresql:$postgresql_driver_version")
 }
