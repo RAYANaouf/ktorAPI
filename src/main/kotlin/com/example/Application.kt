@@ -9,12 +9,12 @@ import io.ktor.server.routing.*
 import org.ktorm.database.Database
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0"){
+    embeddedServer(Netty, port = 3306){
 
         Database.connect(
-            url = "jdbc:mysql://aws.connect.psdb.cloud/test2",
-            user = "uemxywdoxh38jx0hbjak",
-            password = "pscale_pw_V2wAYXaEsRYLDBVRLsQsSdb8FdRC9hjx4qoH2glw0Ca"
+            url = "jdbc:mysql://sql8.freemysqlhosting.net/sql8633448",
+            user = "sql8633448",
+            password = "2AulKfRe3N"
         )
 
         routing {
