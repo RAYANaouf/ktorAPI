@@ -4,28 +4,28 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import com.example.plugins.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.plugins.contentnegotiation.*
 import org.ktorm.database.Database
+import io.ktor.serialization.kotlinx.json.*
 
 fun main() {
-    embeddedServer(Netty, port = 3306){
+    embeddedServer(Netty, port = 8080){
 
 
-
+        module()
 
     }
         .start(wait = true)
 }
 
 fun Application.module() {
-    val database = Database.connect(
-        "jdbc:postgresql://ep-morning-morning-536913.eu-central-1.aws.neon.tech/neondb?user=RAYANaouf&password=xUYdJFX5aSm8",
-        driver = "org.postgresql.Driver",
-        user = "RAYANaouf",
-        password = "xUYdJFX5aSm8"
-    )
-    configureRouting(database)
+
+
+    install(ContentNegotiation) {
+        json()
+    }
+
+    configureRouting()
 }
 
 

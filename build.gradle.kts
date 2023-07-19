@@ -7,6 +7,7 @@ val postgresql_driver_version: String by project
 plugins {
     kotlin("jvm") version "1.9.0"
     id("io.ktor.plugin") version "2.3.2"
+    kotlin("plugin.serialization").version("1.8.0")
 }
 
 group = "com.example"
@@ -35,7 +36,11 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
+    // https://mvnrepository.com/artifact/io.ktor/ktor-server-content-negotiation-jvm
+    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
 
+    // https://mvnrepository.com/artifact/io.ktor/ktor-serialization-kotlinx-json
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
 
     // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
