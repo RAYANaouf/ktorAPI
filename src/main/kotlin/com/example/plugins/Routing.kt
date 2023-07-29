@@ -25,9 +25,10 @@ fun Application.configureRouting() {
             call.respondText("idToken")
         }
 
-        get("/token-exchange") {
-            val idToken = call.receiveText()
-            call.respondText(idToken)
+        post("/token-exchange") {
+            var idToken = call.receive<UserIdToken>()
+            var newIdToken = UserIdToken("your id token is ${idToken.id_token} ")
+            call.respond(newIdToken)
         }
 
     }
@@ -36,3 +37,6 @@ fun Application.configureRouting() {
 
 @Serializable
 data class UserResponse(val message : String)
+
+@Serializable
+data class UserIdToken(val id_token : String)
