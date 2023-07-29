@@ -4,6 +4,7 @@ import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.request.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import org.ktorm.database.Database
@@ -21,7 +22,14 @@ fun Application.configureRouting() {
         get("/") {
             var res = UserResponse("hey there , i'm ktor api , build by rayan!")
             call.respond(res)
+            call.respondText("idToken")
         }
+
+        get("/token-exchange") {
+            val idToken = call.receiveText()
+            call.respondText(idToken)
+        }
+
     }
 }
 
