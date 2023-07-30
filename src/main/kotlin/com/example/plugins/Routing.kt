@@ -20,7 +20,8 @@ fun Application.configureRouting() {
 
     routing {
         get("/") {
-            var res = UserResponse("hey there , i'm ktor api , build by rayan!")
+            var token = call.request.headers["Authorization"]
+            var res = UserResponse("hey there , i'm ktor api , build by rayan!\n your token : $token")
             call.respond(res)
             call.respondText("idToken")
         }
