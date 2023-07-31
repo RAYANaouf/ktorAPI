@@ -62,12 +62,13 @@ suspend fun getUserAccessToken(serverAuthCode: String?): String {
     }
     client.close()
 
-    println("/*/*/*/*/*/*/*/***************  ${response.status}")
+    println("/*/*/*/*/*/*/*/***************  ${response.body<String>()}")
 
-    return response.status.description
+    return response.body<String>()
 }
 
-data class AccessTokenResponse(val access_token: String)
+@Serializable
+data class AccessTokenResponse(val access_token: String , val scope : String , val token_type : String  , val expires_in : String , val refresh_token : String)
 
 
 
