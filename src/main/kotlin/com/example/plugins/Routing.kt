@@ -4,10 +4,13 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
+import io.ktor.http.*
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
+import io.ktor.util.*
 import org.ktorm.database.Database
 import kotlinx.serialization.Serializable
 
@@ -41,14 +44,26 @@ fun Application.configureRouting() {
     }
 }
 
+@OptIn(InternalAPI::class)
 suspend fun getUserAccessToken(serverAuthCode: String?): String {
 
     println("==================>"+serverAuthCode)
-
+//
     val client = HttpClient(CIO)
-    val response: HttpResponse = client.get("https://ktor.io/")
-    println("oooooooooooooooooooooooooo"+response.status)
+    val response: HttpResponse = client.post("https://oauth2.googleapis.com/token"){
+        body = FormDataContent(Parameters.build {
+            append("code", "$serverAuthCode")
+            append("client_id", "309876594725-4ksbgmr7u430etharq03l7sjfu7fquct.apps.googleusercontent.com")
+            append("client_secret", "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")
+            append("redirect_uri", "")
+            append("grant_type", "authorization_code")
+        })
+        contentType(ContentType.Application.FormUrlEncoded)
+    }
     client.close()
+
+    println("/*/*/*/*/*/*/*/***************  ${response.status}")
+
     return response.status.description
 }
 
@@ -66,3 +81,13 @@ data class UserResponse(val message : String)
 
 @Serializable
 data class UserIdToken(val id_token : String)
+
+@Serializable
+data class GoogleTokenExchangeResponse(
+    val access_token: String,
+    val scope: String,
+    val token_type: String,
+    val expires_in: Long,
+    val refresh_token: String
+)
+
