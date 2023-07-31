@@ -51,5 +51,19 @@ dependencies {
     implementation("org.ktorm:ktorm-support-postgresql:$ktorm_version")
     implementation("org.postgresql:postgresql:$postgresql_driver_version")
 
+    // https://mvnrepository.com/artifact/io.ktor/ktor-client-core
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
+
+    // https://mvnrepository.com/artifact/io.ktor/ktor-client-apache
+    implementation("io.ktor:ktor-client-apache:1.6.8")
+
+    // https://mvnrepository.com/artifact/io.ktor/ktor-client-json
+    implementation("io.ktor:ktor-client-json:2.3.0")
+
+
+
+
+
 
 }

@@ -1,13 +1,15 @@
 package com.example.plugins
 
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
-import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.request.*
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
 import org.ktorm.database.Database
+import kotlinx.serialization.Serializable
 
 fun Application.configureRouting() {
 
@@ -27,13 +29,34 @@ fun Application.configureRouting() {
         }
 
         post("/token-exchange") {
-            var idToken = call.receive<UserIdToken>()
-            var newIdToken = UserIdToken("your id token is ${idToken.id_token} ")
-            call.respond(newIdToken)
+            var token = call.request.headers["Authorization"]
+
+            var accessToken = getUserAccessToken(token)
+
+            var responsee = UserResponse("$accessToken")
+
+            call.respond(responsee)
         }
 
     }
 }
+
+suspend fun getUserAccessToken(idToken: String?): String {
+
+    val client = HttpClient(CIO)
+    val response: HttpResponse = client.get("https://ktor.io/")
+    println("oooooooooooooooooooooooooo"+response.status)
+    client.close()
+    return response.body<String>()
+}
+
+data class AccessTokenResponse(val access_token: String)
+
+
+
+
+
+
 
 
 @Serializable
