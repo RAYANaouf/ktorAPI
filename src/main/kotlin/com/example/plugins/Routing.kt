@@ -41,7 +41,9 @@ fun Application.configureRouting() {
     }
 }
 
-suspend fun getUserAccessToken(idToken: String?): String {
+suspend fun getUserAccessToken(serverAuthCode: String?): String {
+
+    println("==================>"+serverAuthCode)
 
     val client = HttpClient(CIO)
     val response: HttpResponse = client.get("https://ktor.io/")
