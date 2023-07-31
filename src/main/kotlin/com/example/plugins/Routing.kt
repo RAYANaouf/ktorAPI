@@ -47,7 +47,7 @@ suspend fun getUserAccessToken(idToken: String?): String {
     val response: HttpResponse = client.get("https://ktor.io/")
     println("oooooooooooooooooooooooooo"+response.status)
     client.close()
-    return response.body<String>()
+    return response.status.description
 }
 
 data class AccessTokenResponse(val access_token: String)
