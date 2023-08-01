@@ -45,7 +45,7 @@ fun Application.configureRouting() {
 }
 
 @OptIn(InternalAPI::class)
-suspend fun getUserAccessToken(serverAuthCode: String?): String {
+suspend fun getUserAccessToken(serverAuthCode: String?): AccessTokenResponse {
 
     println("==================>"+serverAuthCode)
 //
@@ -64,7 +64,7 @@ suspend fun getUserAccessToken(serverAuthCode: String?): String {
 
     println("/*/*/*/*/*/*/*/***************  ${response.body<String>()}")
 
-    return response.body<String>()
+    return response.body<AccessTokenResponse>()
 }
 
 @Serializable
