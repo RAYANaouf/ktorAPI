@@ -45,7 +45,7 @@ fun Application.configureRouting() {
 }
 
 @OptIn(InternalAPI::class)
-suspend fun getUserAccessToken(serverAuthCode: String?): AccessTokenResponse {
+suspend fun getUserAccessToken(serverAuthCode: String?): GoogleTokenExchangeResponse {
 
     println("==================>"+serverAuthCode)
 //
@@ -64,18 +64,8 @@ suspend fun getUserAccessToken(serverAuthCode: String?): AccessTokenResponse {
 
     println("/*/*/*/*/*/*/*/***************  ${response.body<String>()}")
 
-    return response.body<AccessTokenResponse>()
+    return response.body<GoogleTokenExchangeResponse>()
 }
-
-@Serializable
-data class AccessTokenResponse(val access_token: String , val scope : String , val token_type : String  , val expires_in : String , val refresh_token : String)
-
-
-
-
-
-
-
 
 @Serializable
 data class UserResponse(val message : String)
