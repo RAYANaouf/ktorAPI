@@ -38,7 +38,8 @@ fun Application.configureRouting() {
             var token = call.request.headers["Authorization"]
 
             var responsee = getUserAccessToken(token)
-            
+
+
             call.respond(responsee)
         }
 
@@ -56,7 +57,7 @@ suspend fun getUserAccessToken(serverAuthCode: String?): GoogleTokenExchangeResp
         }
     }
 
-    val response: GoogleTokenExchangeResponse = client.post("https://oauth2.googleapis.com/token"){
+    val response: HttpResponse = client.post("https://oauth2.googleapis.com/token"){
         body = FormDataContent(Parameters.build {
             append("code", "$serverAuthCode")
             append("client_id", "309876594725-4ksbgmr7u430etharq03l7sjfu7fquct.apps.googleusercontent.com")
@@ -65,12 +66,12 @@ suspend fun getUserAccessToken(serverAuthCode: String?): GoogleTokenExchangeResp
             append("grant_type", "authorization_code")
         })
         contentType(ContentType.Application.FormUrlEncoded)
-    }.body()
+    }
     client.close()
 
-    println("/*/*/*/*/*/*/*/***************  ${response.access_token}")
+    println("/*/*/*/*/*/*/*/***************  ${response.body<String>()}")
 
-    return response
+    return response.body<GoogleTokenExchangeResponse>()
 }
 
 @Serializable
