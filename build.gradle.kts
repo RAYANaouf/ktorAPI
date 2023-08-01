@@ -61,6 +61,9 @@ dependencies {
     // https://mvnrepository.com/artifact/io.ktor/ktor-client-json
     implementation("io.ktor:ktor-client-json:2.3.0")
 
+    //client negotiation
+    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+
 
 
 

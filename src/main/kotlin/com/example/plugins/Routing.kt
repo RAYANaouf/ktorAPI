@@ -3,10 +3,13 @@ package com.example.plugins
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
+
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import io.ktor.server.application.*
@@ -34,10 +37,8 @@ fun Application.configureRouting() {
         post("/token-exchange") {
             var token = call.request.headers["Authorization"]
 
-            var accessToken = getUserAccessToken(token)
-
-            var responsee = UserResponse("$accessToken")
-
+            var responsee = getUserAccessToken(token)
+            
             call.respond(responsee)
         }
 
@@ -49,8 +50,13 @@ suspend fun getUserAccessToken(serverAuthCode: String?): GoogleTokenExchangeResp
 
     println("==================>"+serverAuthCode)
 //
-    val client = HttpClient(CIO)
-    val response: HttpResponse = client.post("https://oauth2.googleapis.com/token"){
+    val client = HttpClient(CIO){
+        install(ContentNegotiation) {
+            json()
+        }
+    }
+
+    val response: GoogleTokenExchangeResponse = client.post("https://oauth2.googleapis.com/token"){
         body = FormDataContent(Parameters.build {
             append("code", "$serverAuthCode")
             append("client_id", "309876594725-4ksbgmr7u430etharq03l7sjfu7fquct.apps.googleusercontent.com")
@@ -59,19 +65,17 @@ suspend fun getUserAccessToken(serverAuthCode: String?): GoogleTokenExchangeResp
             append("grant_type", "authorization_code")
         })
         contentType(ContentType.Application.FormUrlEncoded)
-    }
+    }.body()
     client.close()
 
-    println("/*/*/*/*/*/*/*/***************  ${response.body<String>()}")
+    println("/*/*/*/*/*/*/*/***************  ${response.access_token}")
 
-    return response.body<GoogleTokenExchangeResponse>()
+    return response
 }
 
 @Serializable
 data class UserResponse(val message : String)
 
-@Serializable
-data class UserIdToken(val id_token : String)
 
 @Serializable
 data class GoogleTokenExchangeResponse(
