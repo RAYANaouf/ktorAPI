@@ -81,9 +81,9 @@ data class UserResponse(val message : String)
 @Serializable
 data class GoogleTokenExchangeResponse(
     val access_token: String,
+    val expires_in: Long,
     val scope: String,
     val token_type: String,
-    val expires_in: Long,
-    val refresh_token: String
+    val id_token  : String
 )
 
